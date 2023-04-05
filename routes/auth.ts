@@ -6,13 +6,25 @@ import {
 	logoutUser,
 	registerUser,
 } from "../controllers/auth.controller";
+import {
+	ensureAuthenticated,
+	forwardAuthenticated,
+} from "../middlewares/auth.middlewares";
 
 const auth = express.Router();
 
-auth.route("/login").get(displayLoginForm).post(loginUser);
+auth
+	.route("/login")
+	.all(forwardAuthenticated)
+	.get(displayLoginForm)
+	.post(loginUser);
 
-auth.route("/register").get(displayRegisterForm).post(registerUser);
+auth
+	.route("/register")
+	.all(forwardAuthenticated)
+	.get(displayRegisterForm)
+	.post(registerUser);
 
-auth.post("/logout", logoutUser);
+auth.post("/logout", ensureAuthenticated, logoutUser);
 
 export default auth;

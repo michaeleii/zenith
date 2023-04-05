@@ -1,0 +1,26 @@
+<h1>Zenith</h1>
+<% if (currentUser) { %>
+<h2>Welcome, <%= currentUser.firstName %> <%= currentUser.lastName%>!</h2>
+<form method="post">
+	<button formaction="/auth/logout">
+		Logout
+	</button>
+</form>
+<form method="get">
+	<button formaction="/products">
+		View Products
+	</button>
+	<button formaction="/categories">
+		View Categories
+	</button>
+</form>
+<% } else {%>
+<form method="get">
+	<button formaction="/auth/register">
+		Register
+	</button>
+	<button formaction="/auth/login">
+		Login
+	</button>
+</form>
+<% } %>

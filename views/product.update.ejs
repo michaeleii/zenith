@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Update: <%= product.name %></title>
+</head>
+
+<body>
+	<h1>Update: <%= product.name %></h1>
+	<form action="/product/<%= product.id %>/update" method="post">
+		<label for="name">Name</label>
+		<input type="text" name="name" id="name" value="<%= product.name %>">
+		<label for="description">Description</label>
+		<input type="text" name="description" id="description" value="<%= product.description %>">
+		<label for="price">Price</label>
+		<input type="number" name="price" id="price" value="<%= product.price %>">
+		<label for="stock">Stock</label>
+		<input type="number" name="stock" id="stock" value="<%= product.stock %>">
+		<label for="category">Category</label>
+		<input type="text" name="category" id="category" value="<%= product.category.name %>">
+		<button type="submit">Update</button>
+	</form>
+
+</body>
+
+</html>

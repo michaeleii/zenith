@@ -5,12 +5,16 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Zenith</title>
+	<title>Create Category</title>
 </head>
 
 <body>
-	<%- include('partials/header') %>
-	<h1>Home</h1>
+	<h1>Create Category</h1>
+	<form method="post">
+		<label for="name">Name</label>
+		<input type="text" name="name" id="name">
+		<button type="submit">Create</button>
+	</form>
 </body>
 
 </html>

@@ -34,20 +34,8 @@ model Product {
 }
 
 model Category {
-  id          Int    @id @default(autoincrement()) @map("category_id")
-  name        String @unique
-  description String
+  id   Int    @id @default(autoincrement()) @map("category_id")
+  name String @unique
 
   @@map("categories")
-}
-
-model Transaction {
-  id        Int   @id @default(autoincrement()) @map("transaction_id")
-  userId    Int   @map("user_id")
-  productId Int   @map("product_id")
-  quantity  Int
-  total     Float @map("total_price")
-
-  @@index([userId, productId])
-  @@map("transactions")
 }

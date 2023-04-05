@@ -1,7 +1,7 @@
 import passport from "passport";
-import db from "../prismaClient";
+import prisma from "../client";
 import local from "./localStrategy";
-import IUser from "../../interfaces/User";
+import IUser from "../../interfaces/IUser";
 
 declare global {
 	namespace Express {
@@ -17,7 +17,7 @@ const intializePassport = () => {
 
 	// Deserialize User
 	passport.deserializeUser(async (id: number, done) => {
-		const user = await db.prisma.user.findUnique({ where: { id } });
+		const user = await prisma.user.findUnique({ where: { id } });
 		if (user) {
 			done(null, user);
 		} else {

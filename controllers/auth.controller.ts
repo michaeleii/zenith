@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import passport from "passport";
-import db from "../src/prismaClient";
+import prisma from "../src/client";
 
 const displayLoginForm = (req: Request, res: Response) => {
 	res.render("login");
@@ -21,7 +21,7 @@ const registerUser = async (req: Request, res: Response) => {
 		const { firstName, lastName, email, password, password2 } = req.body;
 		if (password !== password2) res.redirect("/auth/register");
 		const hashedPassword = await bcrypt.hash(password, 10);
-		const user = await db.prisma.user.create({
+		const user = await prisma.user.create({
 			data: {
 				firstName,
 				lastName,

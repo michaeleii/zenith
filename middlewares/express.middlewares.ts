@@ -1,9 +1,9 @@
-import express, { Application, NextFunction } from "express";
+import express, { Application, Request, Response, NextFunction } from "express";
 import logger from "morgan";
 import session from "express-session";
 import passport from "passport";
 
-const updateCurrentUser = (req: any, res: any, next: NextFunction) => {
+const updateCurrentUser = (req: Request, res: Response, next: NextFunction) => {
 	res.locals.currentUser = req.user;
 	next();
 };
