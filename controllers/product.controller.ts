@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import prisma from "../src/client";
 
 const displayCreateProductForm = (req: Request, res: Response) => {
-	res.render("product.create");
+	res.render("productCreate");
 };
 
 const getAllProducts = async (req: Request, res: Response) => {
@@ -20,7 +20,15 @@ const getProductById = async (req: Request, res: Response) => {
 		const product = await prisma.product.findUnique({
 			where: { id },
 		});
-		res.render("product", { product });
+		if (!product) {
+			throw new Error("Product not found");
+		}
+
+		const category = await prisma.category.findUnique({
+			where: { id: product.categoryId },
+		});
+
+		res.render("product", { product, category });
 	} catch (error) {
 		console.log(error);
 	}
@@ -32,18 +40,20 @@ const createProduct = async (req: Request, res: Response) => {
 		const productCategory = await prisma.category.findUnique({
 			where: { name: category },
 		});
-		if (productCategory) {
-			const product = await prisma.product.create({
-				data: {
-					name,
-					description,
-					price,
-					stock,
-					categoryId: productCategory.id,
-				},
-			});
-			res.redirect(`/product/${product.id}`);
+		if (!productCategory) {
+			throw new Error("Product Category not found");
 		}
+
+		const product = await prisma.product.create({
+			data: {
+				name,
+				description,
+				price: parseFloat(price),
+				stock: parseInt(stock),
+				categoryId: productCategory.id,
+			},
+		});
+		res.redirect(`/product/${product.id}`);
 	} catch (error) {
 		console.log(error);
 	}
@@ -55,7 +65,13 @@ const displayUpdateProductForm = async (req: Request, res: Response) => {
 		const product = await prisma.product.findUnique({
 			where: { id },
 		});
-		res.render("product.update", { product });
+		if (!product) {
+			throw new Error("Product not found");
+		}
+		const category = await prisma.category.findUnique({
+			where: { id: product.categoryId },
+		});
+		res.render("productUpdate", { product, category });
 	} catch (error) {
 		console.log(error);
 	}
@@ -65,7 +81,7 @@ const updateProduct = async (req: Request, res: Response) => {
 	try {
 		const id = +req.params.id;
 		const { name, description, price, stock, category } = req.body;
-		const productCategory = await prisma.category.findUnique({
+		const productCategory = await prisma.category.findFirst({
 			where: { name: category },
 		});
 		if (productCategory) {
@@ -74,8 +90,8 @@ const updateProduct = async (req: Request, res: Response) => {
 				data: {
 					name,
 					description,
-					price,
-					stock,
+					price: parseFloat(price),
+					stock: parseInt(stock),
 					categoryId: productCategory.id,
 				},
 			});

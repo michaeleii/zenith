@@ -15,12 +15,20 @@ const product = express.Router();
 
 product.get("/all", ensureAuthenticated, getAllProducts);
 
-product.get("/create", ensureAuthenticated, displayCreateProductForm);
-product.post("/create", ensureAuthenticated, createProduct);
+product
+	.route("/create")
+	.all(ensureAuthenticated)
+	.get(displayCreateProductForm)
+	.post(createProduct);
+
+product
+	.route("/:id/update")
+	.all(ensureAuthenticated)
+	.get(displayUpdateProductForm)
+	.post(updateProduct);
+
+product.post("/:id/delete", ensureAuthenticated, deleteProduct);
 
 product.get("/:id", ensureAuthenticated, getProductById);
-product.get("/:id/update", ensureAuthenticated, displayUpdateProductForm);
-product.post("/:id/update", ensureAuthenticated, updateProduct);
-product.post("/:id/delete", ensureAuthenticated, deleteProduct);
 
 export default product;

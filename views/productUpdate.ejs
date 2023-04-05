@@ -16,11 +16,11 @@
 		<label for="description">Description</label>
 		<input type="text" name="description" id="description" value="<%= product.description %>">
 		<label for="price">Price</label>
-		<input type="number" name="price" id="price" value="<%= product.price %>">
+		<input type="number" name="price" id="price" step="any" value="<%= product.price %>">
 		<label for="stock">Stock</label>
 		<input type="number" name="stock" id="stock" value="<%= product.stock %>">
 		<label for="category">Category</label>
-		<input type="text" name="category" id="category" value="<%= product.category.name %>">
+		<input type="text" name="category" id="category" value="<%= category.name %>">
 		<button type="submit">Update</button>
 	</form>
 

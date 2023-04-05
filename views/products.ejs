@@ -10,14 +10,17 @@
 
 <body>
 	<%- include('partials/header') %>
+	<form method="get">
+		<button formaction="/product/create">Create Product</button>
+	</form>
 	<h1><%= heading %></h1>
 	<% products.forEach(product => { %>
 	<div>
 		<h2><%= product.name %></h2>
-		<h6><%= product.category.name %></h6>
 		<p><%= product.description %></p>
 		<p><%= product.price %></p>
 		<p>In Stock: <%= product.stock %></p>
+		<a href="/product/<%= product.id %>">View</a>
 	</div>
 	<% }) %>
 

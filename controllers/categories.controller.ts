@@ -24,5 +24,25 @@ const getProductsByCategory = async (req: Request, res: Response) => {
 		console.log(error);
 	}
 };
+const displayCreateCategoryForm = (req: Request, res: Response) => {
+	res.render("categoryCreate");
+};
 
-export { getAllCategories, getProductsByCategory };
+const createCategory = async (req: Request, res: Response) => {
+	try {
+		const { name } = req.body;
+		await prisma.category.create({
+			data: { name },
+		});
+		res.redirect(`/category/all`);
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export {
+	displayCreateCategoryForm,
+	getAllCategories,
+	getProductsByCategory,
+	createCategory,
+};
