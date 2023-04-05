@@ -10,7 +10,7 @@ const getAllCategories = async (req: Request, res: Response) => {
 	}
 };
 
-const getProductByCategory = async (req: Request, res: Response) => {
+const getProductsByCategory = async (req: Request, res: Response) => {
 	try {
 		const id = +req.params.id;
 		const category = await prisma.category.findUnique({ where: { id } });
@@ -25,4 +25,4 @@ const getProductByCategory = async (req: Request, res: Response) => {
 	}
 };
 
-export { getAllCategories, getProductByCategory };
+export { getAllCategories, getProductsByCategory };

@@ -16,11 +16,13 @@
 		</button>
 	</form>
 	<h1>All Categories</h1>
-	<% categories.forEach(category => { %>
-	<div>
-		<h2><%= category.name %></h2>
-	</div>
-	<% }) %>
+	<form method="get">
+		<% categories.forEach(category => { %>
+		<button formaction="/category/<%= category.id %>">
+			<%= category.name %>
+		</button>
+		<% }) %>
+	</form>
 </body>
 
 </html>

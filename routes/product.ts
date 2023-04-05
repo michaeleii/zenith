@@ -13,7 +13,7 @@ import { ensureAuthenticated } from "../middlewares/auth.middlewares";
 
 const product = express.Router();
 
-product.get("/", ensureAuthenticated, getAllProducts);
+product.get("/all", ensureAuthenticated, getAllProducts);
 
 product.get("/create", ensureAuthenticated, displayCreateProductForm);
 product.post("/create", ensureAuthenticated, createProduct);

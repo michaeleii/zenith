@@ -8,7 +8,7 @@ const displayCreateProductForm = (req: Request, res: Response) => {
 const getAllProducts = async (req: Request, res: Response) => {
 	try {
 		const products = await prisma.product.findMany();
-		res.render("products", { products });
+		res.render("products", { heading: "All Products", products });
 	} catch (error) {
 		console.log(error);
 	}
